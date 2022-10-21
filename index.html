@@ -1,51 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Notifications page</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <title>Frontend Mentor | Notifications page</title>
 
-  Notifications 3
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      * {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+      }
+      body {
+        background: hsl(210, 60%, 98%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3% 0%;
+      }
+      .wrapper {
+        width: 56%;
+        height: 870px;
+        background: hsl(0, 0%, 100%);
+        border-radius: 15px;
+        margin-bottom: 10px;
+        padding: 35px;
+        box-shadow: 1px 1px 45px #a5a5a51c, -1px -1px 25px #a5a5a51c;
+        overflow-y: scroll;
+      }
+      .nav {
+        width: 100%;
+        height: 56px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .title {
+        font-size: 26px;
+        font-weight: 800;
+      }
+      .notifier {
+        display: flex;
+      }
+      .unread.new {
+        font-size: 18px;
+        width: 33px;
+        height: 28px;
+        color: hsl(0, 0%, 100%);
+        background: hsl(219, 85%, 26%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        margin-left: 10px;
+        margin-top: 4px;
+      }
+      .unread {
+        display: none;
+      }
+      .mrk-all-btn {
+        color: #2e2d2def;
+        font-size: 17px;
+        cursor: pointer;
+      }
+      .mrk-all-btn:hover {
+        color: hsl(219, 85%, 26%);
+      }
+      .wrapper .notification {
+        cursor: pointer;
+        width: 100%;
+        scrollbar-width: 6px;
+        padding: 16px 15px;
+        margin: 8px 0px;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: 400;
+        display: flex;
+        position: relative;
+      }
+      .notification:hover {
+        background: hsl(210, 60%, 98%);
+      }
+      .wrapper .notification.new {
+        background: hsl(210, 60%, 98%);
+      }
+      .new .msg::after {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        margin-left: 7px;
+        height: 10px;
+        border-radius: 50%;
+        background: hsl(1, 90%, 64%);
+      }
+      .notification .msg b {
+        margin: 0px 5px 0px 0px;
+      }
+      .notification .profile-img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+      .notification-body {
+        margin-top: 10px;
+      }
+      .notification-img {
+        height: 60px;
+        width: 60px;
+        position: absolute;
+        border-radius: 10px;
+        right: 13px;
+      }
+      .time {
+        color: hsl(219, 14%, 63%);
+      }
+      .comment {
+        width: 450px;
+        border: 1px solid #000000;
+        border-radius: 4px;
+        padding: 5px 9px;
+        margin-left: 30px;
+        margin-top: 10px;
+      }
+      .comment:hover {
+        border: none;
+        background: hsl(211, 68%, 94%);
+      }
+      .important-msg {
+        color: hsl(224, 21%, 14%);
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .highlited-msg {
+        color: hsl(219, 85%, 26%);
+        font-weight: bold;
+      }
+      @media screen and (max-width: 1200px) {
+        .notification-img {
+          height: 40px;
+          width: 40px;
+          bottom: 10px;
+        }
+        .title {
+          font-size: 20px;
+        }
+        .comment {
+          margin-left: 0;
+          width: 200px;
+          font-size: 14px;
+        }
+        .unread.new {
+          font-size: 16px;
+          width: 28px;
+          height: 24px;
+          color: hsl(0, 0%, 100%);
+          background: hsl(219, 85%, 26%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          margin-left: 10px;
+          margin-top: 4px;
+        }
+        body {
+          padding: 0;
+        }
+        .wrapper {
+          padding: 30px;
+          width: 100%;
+          height: 100vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="nav">
+        <div class="notifier">
+          <div class="title">Notifications</div>
+          <div class="unread"></div>
+        </div>
+        <div class="mrk-all-btn">Mark all as read</div>
+      </div>
 
-  Mark all as read
+      <div class="notification new">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-mark-webber.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg">
+            <b>Mark Webber</b>
+            reacted to your
+            <span class="important-msg">My first tournament today!</span>
+          </div>
+          <div class="time">1m ago</div>
+        </div>
+      </div>
+      <div class="notification new">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-angela-gray.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg"><b>Angela Gray</b> followed you</div>
+          <div class="time">5m ago</div>
+        </div>
+      </div>
+      <div class="notification new">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-jacob-thompson.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg">
+            <b>Jacob Thompson</b> has joined your group
+            <span class="highlited-msg">Chess Club</span>
+          </div>
+          <div class="time">1 day ago</div>
+        </div>
+      </div>
+      <div class="notification">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-rizky-hasanuddin.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg">
+            <b>Rizky Hasanuddin</b> sent you a private message
+          </div>
+          <div class="time">5 days ago</div>
+          <div class="comment">
+            Hello, thanks for setting up the Chess Club. I've been a member for
+            a few weeks now and I'm already having lots of fun and improving my
+            game.
+          </div>
+        </div>
+      </div>
+      <div class="notification">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-kimberly-smith.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg"><b>Kimberly Smith</b> commented on your picture</div>
+          <div class="time">1 week ago</div>
+        </div>
+        <img
+          class="notification-img"
+          src="./assets/images/image-chess.webp"
+          alt=""
+        />
+      </div>
+      <div class="notification">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-nathan-peterson.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg">
+            <b>Nathan Peterson</b> reacted to your recent post
+            <span class="important-msg">
+              5 end-game strategies to increase your win rate
+            </span>
+          </div>
+          <div class="time">2 weeks ago</div>
+        </div>
+      </div>
+      <div class="notification">
+        <img
+          class="profile-img"
+          src="./assets/images/avatar-anna-kim.webp"
+          alt=""
+        />
+        <div class="notification-body">
+          <div class="msg">
+            <b>Anna Kim</b> left the group
+            <span class="highlited-msg">Chess Club</span>
+          </div>
+          <div class="time">2 weeks ago</div>
+        </div>
+      </div>
+    </div>
 
-  Mark Webber reacted to your recent post My first tournament today!
-  1m ago
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Arumgbo Micheal</a>.
+    </div>
 
-  Angela Gray followed you
-  5m ago
+    <script>
+      const mrkallbtn = document.querySelector(".mrk-all-btn");
+      const unreadNotifications = document.querySelector(".unread");
+      const newNotifications = document.querySelectorAll(".new");
+      let unread = 0;
+      newNotifications.forEach((element) => {
+        unread++;
+      });
 
-  Jacob Thompson has joined your group Chess Club
-  1 day ago
+      mrkallbtn.addEventListener("click", () => {
+        newNotifications.forEach((element) => {
+          element.classList.remove("new");
 
-  Rizky Hasanuddin sent you a private message
-  5 days ago
-  Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
-  I'm already having lots of fun and improving my game.
+          unread = 0;
+        });
+      });
 
-  Kimberly Smith commented on your picture
-  1 week ago
+      newNotifications.forEach((element) => {
+        element.addEventListener("click", () => {
+          element.classList.remove("new");
 
-  Nathan Peterson reacted to your recent post 5 end-game strategies to increase your win rate
-  2 weeks ago
-
-  Anna Kim left the group Chess Club
-  2 weeks ago
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+          unread--;
+        });
+      });
+      setInterval(() => {
+        if (unread > 0) {
+          unreadNotifications.innerHTML = unread;
+          unreadNotifications.classList.add("new");
+        }
+        if (unread <= 0) {
+          unreadNotifications.innerHTML = unread;
+          unreadNotifications.classList.remove("new");
+        }
+      }, 500);
+    </script>
+  </body>
 </html>
